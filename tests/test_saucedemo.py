@@ -4,12 +4,26 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+
+
+from pages.LoginPage import LoginPage
+
+
+
+# import time #MALA PRACTICA....
 
 
 @pytest.fixture(scope="module")
 def driver():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
+
+
+    driver.implicitly_wait(10)
 
     yield driver 
 
@@ -18,6 +32,12 @@ def driver():
 
 
 def test_01_login(driver):
+
+    login = LoginPage(driver)
+
+    login.ingresar_password()
+
+
     driver.get("https://www.saucedemo.com/")
 
     driver.find_element(By.ID, "user-name").send_keys("standard_user")
@@ -65,7 +85,12 @@ def test_05_añadir_producto_al_carrito( driver ):
     boton_agregar = first_item.find_element(By.TAG_NAME,'button')
     boton_agregar.click()
 
-    assert boton_agregar.text.capitalize() == 'Remove' , 'ERROR: el boton no cambio a "Remove"'
+    WebDriverWait(driver, 10).until(
+        EC.text_to_be_present_in_element((By.CSS_SELECTOR, '.inventory_item button'), 'Remove')
+    )
+    boton_agregar = first_item.find_element(By.TAG_NAME,'button')
+
+    assert boton_agregar.text == 'Remove' , 'ERROR: el boton no cambio a "Remove"'
 
 
 def test_06_verificar_contador_carrito( driver ):
@@ -75,7 +100,7 @@ def test_06_verificar_contador_carrito( driver ):
 
 
 def test_07_navegar_carrito(driver):
-
+    
     driver.find_element(By.CLASS_NAME, 'shopping_cart_link').click()
     assert "/cart.html" in driver.current_url , "ERROR: No se redirigió a /cart.html"
 
