@@ -17,7 +17,7 @@ class LoginPage:
         self.username = (By.ID, "user-name") #ESTRUCTURA DE DATOS: TUPLA. 
         self.password = (By.ID, "password")
         self.login_button = (By.ID, "login-button")
-        login_button = 'login_button'
+        # login_button = 'login_button'
 
     def ingresar_Usuario(self, usuario):
         self.driver.find_element(

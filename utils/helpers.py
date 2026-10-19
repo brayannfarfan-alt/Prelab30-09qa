@@ -8,3 +8,12 @@ def login_helper():
 
 
 # def verificar_algo()
+
+
+def lectura_de_archivos(extencion ):
+
+
+    # try:
+
+    # except FileExistsError :
+    #     print()
