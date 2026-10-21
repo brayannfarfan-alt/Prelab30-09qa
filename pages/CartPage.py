@@ -19,6 +19,10 @@ class CartPage:
             By.CLASS_NAME,
             "inventory_item_name"
         )
+        self.checkout_button = (
+            By.ID,
+            "checkout"
+        )
 
     # -----------------------------------------------------
     # PRODUCTOS
@@ -33,3 +37,10 @@ class CartPage:
         return self.driver.find_element(
             *self.producto
         ).text
+
+
+    def ir_a_checkout(self):
+        self.driver.find_element(
+            *self.checkout_button
+        ).click()
+    

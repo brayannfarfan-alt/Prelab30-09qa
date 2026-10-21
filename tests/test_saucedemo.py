@@ -7,6 +7,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.LoginPage import LoginPage
 from pages.InventoryPage import InventoryPage
 from pages.CartPage import CartPage
+from pages.CheckoutPage import CheckoutPage
+from pages.CheckoutOverview import CheckoutOverview
+from data.datos import datos_compra
 
 
 @pytest.fixture
@@ -20,99 +23,133 @@ def driver():
     driver.quit()
 
 
-@pytest.fixture
-def login_exitoso(driver):
+# @pytest.fixture
+# def login_exitoso(driver):
+#     login = LoginPage(driver)
+#     login.hacer_login("standard_user", "secret_sauce")
+
+#     WebDriverWait(driver, 10).until(
+#         EC.url_contains("inventory.html")
+#     )
+
+#     return driver
+
+
+# def test_login_exitoso(driver):
+#     login = LoginPage(driver)
+#     login.hacer_login("standard_user", "secret_sauce")
+
+#     WebDriverWait(driver, 10).until(
+#         EC.url_contains("inventory.html")
+#     )
+
+#     assert "inventory.html" in driver.current_url
+
+
+# def test_login_incorrecto(driver):
+#     login = LoginPage(driver)
+#     login.hacer_login("usuario_incorrecto", "clave_incorrecta")
+
+#     error = WebDriverWait(driver, 10).until(
+#         EC.visibility_of_element_located(
+#             (By.CLASS_NAME, "error-message-container")
+#         )
+#     )
+
+#     assert error.is_displayed()
+
+
+# def test_titulo_inventario(login_exitoso):
+#     inventario = InventoryPage(login_exitoso)
+
+#     assert inventario.obtener_titulo() == "Products"
+
+
+# def test_logo_inventario(login_exitoso):
+#     inventario = InventoryPage(login_exitoso)
+
+#     assert inventario.obtener_logo() == "Swag Labs"
+
+
+# def test_productos_visibles(login_exitoso):
+#     inventario = InventoryPage(login_exitoso)
+
+#     productos = inventario.obtener_productos()
+
+#     assert len(productos) > 0
+
+
+# def test_menu_visible(login_exitoso):
+#     inventario = InventoryPage(login_exitoso)
+
+#     assert inventario.menu_visible()
+
+
+# def test_filtro_visible(login_exitoso):
+#     inventario = InventoryPage(login_exitoso)
+
+#     assert inventario.filtro_visible()
+
+
+# def test_agregar_producto_al_carrito(login_exitoso):
+#     inventario = InventoryPage(login_exitoso)
+
+#     boton = inventario.agregar_primer_producto()
+
+#     WebDriverWait(login_exitoso, 10).until(
+#         lambda driver: boton.text == "Remove"
+#     )
+
+#     assert boton.text == "Remove"
+#     assert inventario.obtener_contador_carrito() == "1"
+
+
+# def test_producto_en_carrito(login_exitoso):
+#     inventario = InventoryPage(login_exitoso)
+
+#     nombre_producto = inventario.obtener_nombre_primer_producto()
+
+#     inventario.agregar_primer_producto()
+#     inventario.abrir_carrito()
+
+#     WebDriverWait(login_exitoso, 10).until(
+#         EC.url_contains("cart.html")
+#     )
+
+#     carrito = CartPage(login_exitoso)
+
+#     assert carrito.obtener_nombre_producto() == nombre_producto
+
+
+@pytest.mark.parametrize("usuario, password,nombre,apellido,codigo_postal",datos_compra)
+def test_compra_completa(driver, usuario,password,nombre,apellido,codigo_postal):
+
     login = LoginPage(driver)
-    login.hacer_login("standard_user", "secret_sauce")
+    login.hacer_login(usuario,password)
+
 
     WebDriverWait(driver, 10).until(
         EC.url_contains("inventory.html")
     )
 
-    return driver
-
-
-def test_login_exitoso(driver):
-    login = LoginPage(driver)
-    login.hacer_login("standard_user", "secret_sauce")
-
-    WebDriverWait(driver, 10).until(
-        EC.url_contains("inventory.html")
-    )
-
-    assert "inventory.html" in driver.current_url
-
-
-def test_login_incorrecto(driver):
-    login = LoginPage(driver)
-    login.hacer_login("usuario_incorrecto", "clave_incorrecta")
-
-    error = WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located(
-            (By.CLASS_NAME, "error-message-container")
-        )
-    )
-
-    assert error.is_displayed()
-
-
-def test_titulo_inventario(login_exitoso):
-    inventario = InventoryPage(login_exitoso)
-
-    assert inventario.obtener_titulo() == "Products"
-
-
-def test_logo_inventario(login_exitoso):
-    inventario = InventoryPage(login_exitoso)
-
-    assert inventario.obtener_logo() == "Swag Labs"
-
-
-def test_productos_visibles(login_exitoso):
-    inventario = InventoryPage(login_exitoso)
-
-    productos = inventario.obtener_productos()
-
-    assert len(productos) > 0
-
-
-def test_menu_visible(login_exitoso):
-    inventario = InventoryPage(login_exitoso)
-
-    assert inventario.menu_visible()
-
-
-def test_filtro_visible(login_exitoso):
-    inventario = InventoryPage(login_exitoso)
-
-    assert inventario.filtro_visible()
-
-
-def test_agregar_producto_al_carrito(login_exitoso):
-    inventario = InventoryPage(login_exitoso)
-
-    boton = inventario.agregar_primer_producto()
-
-    WebDriverWait(login_exitoso, 10).until(
-        lambda driver: boton.text == "Remove"
-    )
-
-    assert boton.text == "Remove"
-    assert inventario.obtener_contador_carrito() == "1"
-
-
-def test_producto_en_carrito(login_exitoso):
-    inventario = InventoryPage(login_exitoso)
-
-    nombre_producto = inventario.obtener_nombre_primer_producto()
-
+    inventario = InventoryPage(driver)
     inventario.agregar_primer_producto()
     inventario.abrir_carrito()
 
-    WebDriverWait(login_exitoso, 10).until(
-        EC.url_contains("cart.html")
+    ckeckouts = CartPage(driver)
+    ckeckouts.ir_a_checkout()
+
+    completar_datos = CheckoutPage(driver)
+    completar_datos.completar_datos(nombre,apellido,codigo_postal)
+    completar_datos.continuar()
+
+    overview = CheckoutOverview(driver)
+    overview.finalizar_compra()
+
+
+    assert (
+        overview.obtener_confimacion() == "Thank you for your order!"
     )
 
-    carrito = CartPage(login_exitoso)
 
-    assert carrito.obtener_nombre_producto() == nombre_producto
+
