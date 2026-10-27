@@ -1,5 +1,7 @@
 import pytest
 from pathlib import Path
+import csv 
+import json
 # import glob
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -10,24 +12,41 @@ from pages.LoginPage import LoginPage
 # from pages.InventoryPage import InventoryPage
 
 RUTA_CSV = (
-    Path(__file__).resolve()
+    Path(__file__).resolve().parents[1]
     / "data"
     / "usuarios.csv"
 )
 
 def leeer_datos_csv():
+    datos = []
+    with open(RUTA_CSV, mode='r', encoding='utf-8', newline='') as archivo:
+        leer = csv.DictReader(archivo)
 
-    open()
+        for fila in leer :
+            usuario = fila['usuario']
+            password = fila['password']
+
+            datos.append((usuario,password))
+    return datos
+
+RUTA_JSON = (
+    Path(__file__).resolve().parents[1]
+    / "data"
+    / "usuarios.json"
+)
 
 
-# RUTA_JSON = (
-#     Path(__file__).resolve().parents[1]
-#     / "data"
-#     / "usuarios.json"
-# )
+def leeer_datos_json():
+    datos = []
+    with open(RUTA_CSV, mode='r', encoding='utf-8', newline='') as archivo:
+        leer = json.load(archivo)
 
+        for fila in leer :
+            usuario = fila['usuario']
+            password = fila['password']
 
-
+            datos.append((usuario,password))
+    return datos
 
 
 
