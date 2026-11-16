@@ -11,6 +11,8 @@ from data.datos import datos_login
 from pages.LoginPage import LoginPage
 # from pages.InventoryPage import InventoryPage
 
+from utils.helpers import logger
+
 RUTA_CSV = (
     Path(__file__).resolve().parents[1]
     / "data"
@@ -55,20 +57,21 @@ def leeer_datos_json():
 
 @pytest.mark.parametrize("usuario,password", datos_login)
 def test_01_login(driver,usuario,password):
-
+    logger.info("Iniciando login con usuario: %s")
     # CREAR UN OBJETO
     login = LoginPage(driver)
 
     # login.ingresar_password()
 
     driver.get("https://www.saucedemo.com/")
+    logger.info("Completando credenciales.....")
 
     login.hacer_login(usuario, password)
     
     WebDriverWait(driver,10).until(
         EC.url_contains('inventory.html')
     )
-
+    logger.info("verificando redireccion exitosa")
     assert "/inventory.html" in driver.current_url , "ERROR: No se redirigió a /inventory.html"
 
 
