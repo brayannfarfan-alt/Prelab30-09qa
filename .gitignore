@@ -6,3 +6,8 @@
 /utils/__pycache__
 /logs/suite.log
 /reports
+/automatizacionApi/__pycache__
+/automatizacionApi/reports
+/automatizacionApi/logs
+/automatizacionApi/tests/__pycache__
+/automatizacionApi/tests/__init__.py

@@ -29,7 +29,7 @@ def driver():
     driver.implicitly_wait(10)
 
     yield driver 
-    driver.save_screenshot()
+    driver.save_screenshot() #POSIBLE ERROR DEL SCREEN
     driver.quit()
 
 
@@ -60,6 +60,7 @@ import pytest
 import re
 import base64
 from pathlib import Path
+from datetime import datetime
 
 
 @pytest.hookimpl(hookwrapper=True)
@@ -75,6 +76,9 @@ def pytest_runtest_makereport(item, call):
         if driver:
             carpeta = Path("reports/screenshots")
             carpeta.mkdir(parents=True, exist_ok=True)
+            
+            # archivo = Path(item.path).name
+            # fecha_hora = datetime.now().strftime("%Y/%m/%d_%H-%M-%S")
 
             nombre = re.sub(
                 r"[^a-zA-Z0-9_-]",
