@@ -2,3 +2,7 @@
 /.pytest_cache
 /tests/__pycache__
 /data/__pycache__
+/pages/__pycache__
+/utils/__pycache__
+/logs/suite.log
+/reports

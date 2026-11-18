@@ -29,3 +29,36 @@
 17:29:47 INFO talentolab – Iniciando login con usuario: %s
 17:29:47 INFO talentolab – Completando credenciales.....
 17:29:48 INFO talentolab – verificando redireccion exitosa
+17:44:50 INFO WDM – ====== WebDriver manager ======
+17:44:54 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:44:54 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:44:54 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:44:55 INFO WDM – WebDriver version 157.0.8103.78 selected
+17:44:55 INFO WDM – Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/157.0.8103.78/win32/chromedriver-win32.zip
+17:44:55 INFO WDM – About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/157.0.8103.78/win32/chromedriver-win32.zip
+17:44:55 INFO WDM – Driver downloading response is 200
+17:44:55 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:44:55 INFO WDM – Driver has been saved in cache [C:\Users\braya\.wdm\drivers\chromedriver\win64\157.0.8103.78]
+17:45:01 INFO talentolab – Iniciando login con usuario: %s
+17:45:01 INFO talentolab – Completando credenciales.....
+17:46:14 INFO WDM – ====== WebDriver manager ======
+17:46:17 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:46:17 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:46:17 INFO WDM – Driver [C:\Users\braya\.wdm\drivers\chromedriver\win64\157.0.8103.78\chromedriver-win32/chromedriver.exe] found in cache
+17:46:19 INFO talentolab – Iniciando login con usuario: %s
+17:46:19 INFO talentolab – Completando credenciales.....
+17:48:42 INFO WDM – ====== WebDriver manager ======
+17:48:44 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:48:44 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:48:44 INFO WDM – Driver [C:\Users\braya\.wdm\drivers\chromedriver\win64\157.0.8103.78\chromedriver-win32/chromedriver.exe] found in cache
+17:48:46 INFO talentolab – Iniciando login con usuario: %s
+17:48:46 INFO talentolab – Completando credenciales.....
+17:48:57 INFO talentolab – Iniciando login con usuario: %s
+17:48:57 INFO talentolab – Completando credenciales.....
+17:48:58 INFO talentolab – verificando redireccion exitosa
+17:50:10 INFO WDM – ====== WebDriver manager ======
+17:50:12 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:50:12 INFO WDM – Get LATEST chromedriver version for google-chrome
+17:50:12 INFO WDM – Driver [C:\Users\braya\.wdm\drivers\chromedriver\win64\157.0.8103.78\chromedriver-win32/chromedriver.exe] found in cache
+17:50:15 INFO talentolab – Iniciando login con usuario: %s
+17:50:15 INFO talentolab – Completando credenciales.....
