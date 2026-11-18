@@ -54,7 +54,6 @@ def leeer_datos_json():
 
 
 
-
 @pytest.mark.parametrize("usuario,password", datos_login)
 def test_01_login(driver,usuario,password):
     logger.info("Iniciando login con usuario: %s")
