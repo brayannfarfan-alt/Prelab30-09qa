@@ -27,3 +27,7 @@ class PostsService:
     def eliminar_post(self, post_id):
         url = f"{self.url}/posts/{post_id}"
         return requests.delete(url)
+
+
+
+
